@@ -1,23 +1,11 @@
 import React, {useState} from 'react';
-
-function VinylCard(props) {
-    return (
-        <div className="Vinyl-card">
-            <img src={props.albumart} alt={props.title} />
-        </div>
-    );
-}
+import Vinyl from './Vinyl.js'
 
 const VinylList = (props) => {
     return (
         <div className="Vinyl-card-list">
         {props.list.map((record, index) => (
-            <VinylCard key={index}
-            title={record.title}
-            artist={record.artist}
-            year={record.year}
-            albumart={record.albumart}
-            />
+            <Vinyl data={record} />
         ))}
         </div>
     );

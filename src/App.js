@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css';
 import Records from './components/Records.js'
+import VinylWindow from './components/VinylWindow';
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
         />
     </div>
     <Records />
+    <VinylWindow />
     </>
   )
 }
