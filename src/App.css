@@ -98,3 +98,16 @@ body {
   max-width: 600px;
   width:100%;
 }
+
+ul.Admin-vinyl-list {
+
+}
+
+ul.Admin-vinyl-list li {
+  display:flex;
+  border:1px solid darkgray;
+}
+
+ul.Admin-vinyl-list li img {
+  width: 128px;
+}

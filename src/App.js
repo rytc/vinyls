@@ -1,30 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css';
-import Records from './components/Records.js'
-import VinylWindow from './components/VinylWindow';
+import Home from './home'
+import Admin from './admin'
 
-function Home() {
-  return (
-    <>
-    <div className="Search">
-        <input
-          type="search"
-          placeholder='Search records'
-        />
-    </div>
-    <Records />
-    <VinylWindow />
-    </>
-  )
-}
-
-function Admin() {
-  return (
-    <>
-      <h1>Admin</h1>
-    </>
-  );
-}
 
 function App() {
 
