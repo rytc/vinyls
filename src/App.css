@@ -2,15 +2,6 @@ body {
   background-color: #111;
 }
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -18,6 +9,7 @@ body {
 }
 
 .App-header {
+  padding-left: 1em;
   background-color: #222;
   width: 100%;
   display: flex;
@@ -35,9 +27,9 @@ body {
 }
 
 .Search {
+  text-align: center;
   padding-top: 4em;
   padding-bottom: 4em;
-  display:box;
   width: 100%;
 }
 
@@ -59,6 +51,8 @@ body {
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 
 }

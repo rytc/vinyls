@@ -4,9 +4,6 @@ function VinylCard(props) {
     return (
         <div className="Vinyl-card">
             <img src={props.albumart} alt={props.title} />
-            <h1>{props.title}</h1>
-            <h2>{props.artist}</h2>
-            <sub>{props.year}</sub>
         </div>
     );
 }
@@ -58,7 +55,7 @@ class Records extends React.Component {
     render() {
         const {error, isLoaded, records} = this.state;
         if(error) {
-            return <div>Error: {error}</div>
+            return <div>Failed to load records from server</div>
         } else if(!isLoaded) {
             return <div>Loading...</div>
         } else {
