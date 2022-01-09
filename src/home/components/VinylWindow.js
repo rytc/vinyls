@@ -37,11 +37,11 @@ class VinylWindow extends React.Component {
 
     ArtistList(props) {
     return (
-                <p>
+                <>
                     {props.artists.map(artist => (
                        <>{artist.name}</>
                     ))}
-                </p>
+                </>
             );
     }
 
@@ -52,11 +52,12 @@ class VinylWindow extends React.Component {
             <img src={data.images[0].uri} alt={data.title} />
             <button onClick={this.hide} className='Close-button'>Close</button>
             <h1>{data.title}</h1>
-            <this.ArtistList artists={data.artists} />
-            <p>Released in {data.year}, more <a href={data.uri}>album details here.</a></p>
+            <h2><this.ArtistList artists={data.artists} />, {data.year}</h2>
+            <p>View more <a href={data.uri}>album details here.</a></p>
             <p>
-                {data.genres.join(', ')}
+                Genre: {data.genres.join(', ')}
             </p>
+            <h2>Track List</h2>
             <this.TrackList tracklist={data.tracklist} />
             </>
         )
