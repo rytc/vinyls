@@ -6,6 +6,7 @@ class SearchRecords extends React.Component {
         super(props);
         this.searchChanged = this.searchChanged.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleSearchQuery = this.handleSearchQuery.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.SearchList = this.SearchList.bind(this);
         
@@ -27,6 +28,27 @@ class SearchRecords extends React.Component {
         event.preventDefault();
         console.log("click " + this.state.search)
         fetch(`/api/discogs/search/${this.state.search}`)
+            .then(res => res.json())
+            .then(result => {
+                this.setState({
+                    isLoaded: true,
+                    data: result.results,
+                    error: null
+                });
+                console.log("Got results");
+            },
+            (err) => {
+                this.setState({
+                    isLoaded: true,
+                    error: err
+                })
+            });
+    }
+
+    handleSearchQuery(event) {
+        event.preventDefault();
+        console.log("click " + this.state.search)
+        fetch(`/api/discogs/search2/${this.state.search}`)
             .then(res => res.json())
             .then(result => {
                 this.setState({
@@ -82,8 +104,9 @@ class SearchRecords extends React.Component {
     render() {
         return (
             <>
-                <input type="search" id="query" onChange={this.searchChanged} placeholder='UPC/Barcode'/>
-                <button onClick={this.handleSearch}>Search</button>
+                <input type="search" id="query" onChange={this.searchChanged}/>
+                <button onClick={this.handleSearch}>Search by UPC</button>
+                <button onClick={this.handleSearchQuery}>Search</button>
                 <this.SearchList />
             </>
         )

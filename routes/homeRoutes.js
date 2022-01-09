@@ -12,7 +12,6 @@ router.get("/admin", (req, res) => {
 
 router.post("/login", (req, res) => {
     console.log("Login attempt");
-    console.log(req.body);
     if(req.body.username === process.env.USER &&
         req.body.password === process.env.PASSWORD) {
             console.log("Login success")

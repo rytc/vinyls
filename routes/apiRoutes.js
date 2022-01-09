@@ -57,6 +57,17 @@ router.get("/discogs/search/:upc", (req,res) => {
     });
 })
 
+router.get("/discogs/search2/:query", (req,res) => {
+    discogs.get(`/database/search?q=${req.params.query}`, (err, data) => {
+        if(err) {
+            res.sendStatus(500);
+            console.log("Error fetching from discogs")
+        } else {
+            res.json(data);
+        }
+    });
+})
+
 router.get("/discogs/add/:upc/:id", isLoggedIn, (req, res) => {
     discogs.get(`/masters/${req.params.id}`, (err, data) => {
         let newRecord = new Vinyls({

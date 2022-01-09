@@ -9,7 +9,7 @@ function App() {
   return (
     <>
     <header className="App-header">
-        <h1>vinyl.rytc.io</h1>
+        <h1>vinyls.rytc.io</h1>
         <a href="https://rytc.io">Go to rytc.io</a>
     </header>
       
