@@ -54,7 +54,7 @@ class VinylWindow extends React.Component {
                         <img src={data.images[0].uri} alt={data.title} />
                         <h1>{data.title}</h1>
                         <this.ArtistList artists={data.artists} />
-                        <p>Released in {data.year}</p>
+                        <p>Released in {data.year}, more <a href={data.uri}>album details here.</a></p>
                         <this.TrackList tracklist={data.tracklist} />
                     </div>
                 </div>
