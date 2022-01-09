@@ -12,9 +12,14 @@ body {
   padding-left: 1em;
   background-color: #222;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   color: white;
   box-shadow: 4px 8px 1em black;
+}
+
+.App-header a {
+  margin-left: 2em;
 }
 
 .App-main {

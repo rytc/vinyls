@@ -10,6 +10,7 @@ function App() {
     <>
     <header className="App-header">
         <h1>vinyl.rytc.io</h1>
+        <a href="https://rytc.io">Go to rytc.io</a>
     </header>
       
     <main className="App-main">
