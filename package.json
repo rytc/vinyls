@@ -20,7 +20,7 @@
   "scripts": {
     "start-react": "react-scripts start",
     "heroku-postbuild": "npm run build",
-    "start": "nodemon",
+    "start": "node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
