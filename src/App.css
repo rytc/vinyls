@@ -2,6 +2,13 @@ body {
   background-color: #111;
 }
 
+.Close-button {
+  border: 1px solid darkgray;
+  background-color: #222;
+  color: white;
+  padding: 0.5em;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -91,9 +98,9 @@ body {
   border-radius: 1em;
   box-shadow: 12px 12px 5em black;
   padding: 1em;
-  left: 12%;
+  left: 20%;
   width:75%;
-  height:75%;
+  height:50%;
   background-color: black;
   z-index: 100;
   overflow-y: scroll;

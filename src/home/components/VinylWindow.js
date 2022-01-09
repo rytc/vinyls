@@ -5,9 +5,12 @@ class VinylWindow extends React.Component {
     constructor(props) {
         super(props)
         this.hide = this.hide.bind(this);
+        this.noop = this.noop.bind(this);
+        this.AlbumData = this.AlbumData.bind(this);
         this.state = {
             data: {},
-            show: false
+            show: false,
+            isLoaded: false
 
         };
         VinylWindow.__singleton = this;
@@ -18,7 +21,14 @@ class VinylWindow extends React.Component {
     }
 
     hide() {
-        this.setState({show: false})
+        this.setState({show: false, isLoaded: false})
+        let body = document.getElementsByTagName('body')[0]
+        body.style.position = ''
+        window.scrollTo(0, parseInt(this.state.scrollY || 0) *-1);
+    }
+
+    noop(event) {
+
     }
 
     TrackList(props) {
@@ -41,39 +51,69 @@ class VinylWindow extends React.Component {
             );
     }
 
+    AlbumData(props) {
+        const {data} = this.state;
+        return (
+            <>
+            <img src={data.images[0].uri} alt={data.title} />
+            <button onClick={this.hide} className='Close-button'>Close</button>
+            <h1>{data.title}</h1>
+            <this.ArtistList artists={data.artists} />
+            <p>Released in {data.year}, more <a href={data.uri}>album details here.</a></p>
+            <p>
+                {data.genres.join(', ')}
+            </p>
+            <this.TrackList tracklist={data.tracklist} />
+            </>
+        )
+    }
+
     render() {
 
         if(this.state.show === false) {
             return null;
         } else {
-            const {data} = this.state;
-            return (
-                <>
-                <div className="Vinyl-modal-bg" onClick={this.hide}>
-                    <div className="Vinyl-modal-window">
-                        <img src={data.images[0].uri} alt={data.title} />
-                        <h1>{data.title}</h1>
-                        <this.ArtistList artists={data.artists} />
-                        <p>Released in {data.year}, more <a href={data.uri}>album details here.</a></p>
-                        <p>
-                            {data.genres.join(', ')}
-                        </p>
-                        <this.TrackList tracklist={data.tracklist} />
+            const {isLoaded} = this.state;
+            if(isLoaded === false) {
+                return (
+                    <>
+                    <div className="Vinyl-modal-bg">
+                        <div className="Vinyl-modal-window">
+                           <p>Loading album details...</p> 
+                        </div>
                     </div>
-                </div>
-                </>
-            );
+                    </>
+                )
+            } else {
+                return (
+                    <>
+                    <div className="Vinyl-modal-bg">
+                        <div className="Vinyl-modal-window">
+                            <this.AlbumData />
+                        </div>
+                    </div>
+                    </>
+                );
+            }
+            
         }
     }
 
     show(request) {
+        this.setState({show: true, scrollY: window.scrollY});
+        let body = document.getElementsByTagName('body')[0]
+        body.style.position = 'fixed'
+        body.style.top = -window.scrollY;
+
+
         fetch(`/api/discogs/get/${request.master_id}`)
             .then(res => res.json())
             .then(result => {
-                this.setState({data: result, show: true});
+                this.setState({data: result, show: true, isLoaded: true});
+                
             },
             (err) => {
-                this.setState({show: false});
+                this.setState({show: false, isLoaded: false});
             })            
     }
 
