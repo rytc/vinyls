@@ -31,6 +31,16 @@ class VinylWindow extends React.Component {
             );
     }
 
+    ArtistList(props) {
+    return (
+                <p>
+                    {props.artists.map(artist => (
+                       <>{artist.name}</>
+                    ))}
+                </p>
+            );
+    }
+
     render() {
 
         if(this.state.show === false) {
@@ -43,6 +53,7 @@ class VinylWindow extends React.Component {
                     <div className="Vinyl-modal-window">
                         <img src={data.images[0].uri} alt={data.title} />
                         <h1>{data.title}</h1>
+                        <this.ArtistList artists={data.artists} />
                         <p>Released in {data.year}</p>
                         <this.TrackList tracklist={data.tracklist} />
                     </div>

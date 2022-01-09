@@ -112,10 +112,10 @@ ul.Admin-vinyl-list li img {
   width: 128px;
 }
 
-ul.Admin-vinyl-list li a {
+a {
   color:white;
 }
 
-ul.Admin-vinyl-list li a:visited {
+a:visited {
   color:gray;
 }
