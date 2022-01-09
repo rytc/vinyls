@@ -18,7 +18,7 @@ class Vinyl extends React.Component {
         const {data} = this.state;
         return (
             <div className="Vinyl-card" onClick={this.handleClick}>
-                <img src={data.albumart} alt={data.title} />
+                <img src={data.albumart} alt="Album art" />
             </div>
         );
 

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Vinyls = require("../models/Vinyls.js");
 const discogs = require("../config/discogs.js");
+const isLoggedIn = require('../helpers')
 
 router.get("/records", async (req, res) => {
     /*const list = [
@@ -30,23 +31,51 @@ router.get("/records", async (req, res) => {
         }
     ];*/
 
-    let list = await Vinyls.find({title:"Discovery"});
-    console.log(list);
+    let list = await Vinyls.find();
 
     res.json(list)
 })
 
-router.get("/discogs/search/:query", (req,res) => {
-    console.log(`Got search request for ${req.params.query}`);
-    discogs.get(`/database/search?q=${req.params.query}`, (err, data) => {
+router.get("/discogs/get/:id", (req, res) => {
+    discogs.get(`/masters/${req.params.id}`, (err, data) => {
+        if(err) {
+            res.json({});
+        } else {
+            res.json(data);
+        }
+    })
+})
+
+router.get("/discogs/search/:upc", (req,res) => {
+    discogs.get(`/database/search?barcode=${req.params.upc}`, (err, data) => {
         if(err) {
             res.sendStatus(500);
             console.log("Error fetching from discogs")
         } else {
             res.json(data);
-            console.log(data);
         }
     });
+})
+
+router.get("/discogs/add/:upc/:id", isLoggedIn, (req, res) => {
+    discogs.get(`/masters/${req.params.id}`, (err, data) => {
+        let newRecord = new Vinyls({
+            upc: req.params.upc,
+            master_id: req.params.id,
+            title: data.title,
+            albumart: data.images[0].uri,
+        });
+
+        for(let i = 0; i < data.artists.length; i++) {
+            newRecord.artists.push(data.artists[i].name)
+        }
+
+        newRecord.save().then(saveRes => {
+            res.sendStatus(200);
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    })
 })
 
 module.exports = router

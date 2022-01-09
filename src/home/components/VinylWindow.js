@@ -8,19 +8,31 @@ class VinylWindow extends React.Component {
         this.state = {
             data: {},
             show: false
+
         };
         VinylWindow.__singleton = this;
     }
 
-    static show(data) {
-        VinylWindow.__singleton.show(data);
+    static show(request) {
+        VinylWindow.__singleton.show(request);
     }
 
     hide() {
         this.setState({show: false})
     }
 
+    TrackList(props) {
+        return (
+                <ol>
+                    {props.tracklist.map(track => (
+                        <li>{track.title} - {track.duration}</li>
+                    ))}
+                </ol>
+            );
+    }
+
     render() {
+
         if(this.state.show === false) {
             return null;
         } else {
@@ -29,10 +41,10 @@ class VinylWindow extends React.Component {
                 <>
                 <div className="Vinyl-modal-bg" onClick={this.hide}>
                     <div className="Vinyl-modal-window">
-                        <img src={data.albumart} alt={data.tile} />
+                        <img src={data.images[0].uri} alt={data.title} />
                         <h1>{data.title}</h1>
-                        <h2>{data.artist}</h2>
                         <p>Released in {data.year}</p>
+                        <this.TrackList tracklist={data.tracklist} />
                     </div>
                 </div>
                 </>
@@ -40,8 +52,15 @@ class VinylWindow extends React.Component {
         }
     }
 
-    show(data) {
-        this.setState({data: data, show: true});
+    show(request) {
+        fetch(`/api/discogs/get/${request.master_id}`)
+            .then(res => res.json())
+            .then(result => {
+                this.setState({data: result, show: true});
+            },
+            (err) => {
+                this.setState({show: false});
+            })            
     }
 
     

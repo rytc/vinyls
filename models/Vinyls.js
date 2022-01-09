@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
 
-const Track = new mongoose.Schema({
-    name: String,
-    length: String,
-})
-
 const Vinyls = new mongoose.Schema({
+    upc: String,
+    master_id: String,
     title: String,
-    artist: String,
-    year: Number,
-    albumart: String,
-    tracklist: [Track]
+    artists: [String],
+    albumart: String
 })
 
 module.exports = mongoose.model('Vinyls', Vinyls);

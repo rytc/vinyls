@@ -6,7 +6,7 @@ const VinylList = (props) => {
         {props.list.map((record, index) => (
             <li>
                 <img src={record.albumart} alt={record.title} />
-                <strong>{record.title}</strong> - {record.artist}
+                <b>UPC:</b> {record.upc} - <b>ID:</b> {record.master_id}
             </li>
         ))}
         </ul>
@@ -19,12 +19,18 @@ class Records extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            records: []
+            records: [],
+            jwt: props.jwt
         }
     }
     
     componentDidMount() {
-        fetch("/api/records")
+        fetch("/api/records", {
+            method: "GET",
+            headers: {
+                'Authorization': this.state.jwt
+            }
+        })
             .then(res => res.json())
             .then(result => {
                 this.setState({
