@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start-react": "react-scripts start",
-    "start": "node index.js",
+    "heroku-postbuild": "npm run build",
+    "start": "nodemon",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
