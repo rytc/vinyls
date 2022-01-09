@@ -31,7 +31,7 @@ router.get("/records", async (req, res) => {
         }
     ];*/
 
-    let list = await Vinyls.find();
+    let list = await Vinyls.find({}, null, {sort: {artists: 1}});
 
     res.json(list)
 })
