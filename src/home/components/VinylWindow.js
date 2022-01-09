@@ -5,7 +5,6 @@ class VinylWindow extends React.Component {
     constructor(props) {
         super(props)
         this.hide = this.hide.bind(this);
-        this.noop = this.noop.bind(this);
         this.AlbumData = this.AlbumData.bind(this);
         this.state = {
             data: {},
@@ -23,12 +22,7 @@ class VinylWindow extends React.Component {
     hide() {
         this.setState({show: false, isLoaded: false})
         let body = document.getElementsByTagName('body')[0]
-        body.style.position = ''
-        window.scrollTo(0, parseInt(this.state.scrollY || 0) *-1);
-    }
-
-    noop(event) {
-
+        body.style.overflow = 'unset'
     }
 
     TrackList(props) {
@@ -100,10 +94,9 @@ class VinylWindow extends React.Component {
     }
 
     show(request) {
-        this.setState({show: true, scrollY: window.scrollY});
+        this.setState({show: true});
         let body = document.getElementsByTagName('body')[0]
-        body.style.position = 'fixed'
-        body.style.top = -window.scrollY;
+        body.style.overflow = 'hidden'
 
 
         fetch(`/api/discogs/get/${request.master_id}`)
