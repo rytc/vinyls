@@ -71,7 +71,7 @@ body {
 }
 
 .Vinyl-modal-bg {
-  position:absolute;
+  position:fixed;
   top: 0;
   width:100%;
   height:100%;
@@ -80,8 +80,8 @@ body {
 }
 
 .Vinyl-modal-window {
-  position: absolute;
-  top:12%;
+  position: fixed;
+  top: 12%;
   border:1px solid #555;
   border-radius: 1em;
   box-shadow: 12px 12px 5em black;
@@ -91,6 +91,7 @@ body {
   height:75%;
   background-color: black;
   z-index: 100;
+  overflow-y: scroll;
 }
 
 .Vinyl-modal-window img {
