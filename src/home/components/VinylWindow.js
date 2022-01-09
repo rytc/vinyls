@@ -55,6 +55,9 @@ class VinylWindow extends React.Component {
                         <h1>{data.title}</h1>
                         <this.ArtistList artists={data.artists} />
                         <p>Released in {data.year}, more <a href={data.uri}>album details here.</a></p>
+                        <p>
+                            {data.genres.join(', ')}
+                        </p>
                         <this.TrackList tracklist={data.tracklist} />
                     </div>
                 </div>
