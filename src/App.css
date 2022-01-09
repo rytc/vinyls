@@ -98,9 +98,9 @@ body {
   border-radius: 1em;
   box-shadow: 12px 12px 5em black;
   padding: 1em;
-  left: 20%;
+  left: 10%;
   width:75%;
-  height:50%;
+  height:65%;
   background-color: black;
   z-index: 100;
   overflow-y: scroll;
