@@ -15,7 +15,7 @@ app.use(routes)
 app.use(express.static(path.join(__dirname, "client", "build")))
 
 
-app.listen(process.env.PORT || 3000, async () => {
+app.listen(process.env.PORT || 3001, async () => {
     try {
         await mongoose.connect(process.env.ATLASDB_URL);
 

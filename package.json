@@ -2,9 +2,13 @@
   "name": "vinyl-rytc",
   "version": "1.0.0",
   "description": "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:prod": "node server.js",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
     "build": "cd client && npm run build"
   },
   "repository": {
@@ -22,6 +26,10 @@
     "disconnect": "^1.2.2",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
+    "if-env": "^1.0.4",
     "mongoose": "^6.1.7"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
   }
 }
