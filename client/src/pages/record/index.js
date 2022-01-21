@@ -54,17 +54,21 @@ const Record = (props) => {
         const data = recordState.data;
 
         return (
-            <>
-            <img src={data.images[0].uri} alt={data.title} />
-            <h1>{data.title}</h1>
-            <h2><ArtistList artists={data.artists} />, {data.year}</h2>
-            <p>View more <a href={data.uri}>album details here.</a></p>
-            <p>
-                Genre: {data.genres.join(', ')}
-            </p>
-            <h2>Track List</h2>
-            <TrackList tracklist={data.tracklist} />
-            </>
+            <div className="row">
+                <div className="col-lg-4">
+                    <img src={data.images[0].uri} alt={data.title} />
+                </div>
+                <div className="col-lg-8">
+                    <h1>{data.title}</h1>
+                    <h2><ArtistList artists={data.artists} />, {data.year}</h2>
+                    <p>View more <a href={data.uri}>album details here.</a></p>
+                    <p>
+                        Genre: {data.genres.join(', ')}
+                    </p>
+                    <h2>Track List</h2>
+                    <TrackList tracklist={data.tracklist} />
+                </div>
+            </div>
         )
     }
 
