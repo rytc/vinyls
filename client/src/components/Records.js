@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Vinyl from './Vinyl.js'
+import VinylCard from "./VinylCard"
 
 const VinylList = (props) => {
     return (
         <div className="Vinyl-card-list">
         {props.list.map((record, index) => (
-            <Vinyl key={index} data={record} />
+            <VinylCard key={index} data={record} />
         ))}
         </div>
     );
