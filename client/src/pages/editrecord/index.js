@@ -7,7 +7,8 @@ const EditRecord = (props) => {
 
     const [recordState,  setRecordState] = useState({
         data: null,
-        albumart: []
+        albumart: [],
+        albumList: []
     })
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const EditRecord = (props) => {
 
         if(recordState.albumart.length > 0) {
             let art = [];
-            setRecordState({...recordState, albumart: art});
+            setRecordState({...recordState, albumart: art, albumList: []});
         } else {
             fetch(`/api/discogs/get/${recordState.data.master_id}`)
                 .then(res => res.json()
@@ -49,6 +50,22 @@ const EditRecord = (props) => {
         }
     }
 
+    const handleSearchUPC = (event) => {
+        event.preventDefault();
+        fetch(`/api/discogs/search/${recordState.data.upc}`)
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                setRecordState({
+                    ...recordState,
+                    albumart: [],
+                    albumList: result.results,
+                });
+            },
+            (err) => {
+            });
+    }
+
     const RenderChangeAlbumArt = (props) => {
         return (
             <div className="Vinyl-card-list">
@@ -59,6 +76,25 @@ const EditRecord = (props) => {
                 ))}
             </div>
         );
+    }
+
+    const RenderUPCList = (props) => {
+        return (
+            <>
+                {recordState.albumList.map((record, index) => (
+                <li key={index} className="list-group-item mb-2 p-4">
+                    <img src={record.cover_image} alt={record.title} />
+                    <h5>{record.title}</h5> 
+                    <h6>{record.year} / {record.country}</h6>
+                    <ul>
+                        <li>UPC: {record.catno}</li>
+                        <li>Master: {record.master_id}</li>
+                    </ul>
+                    <a className="link-dark" href={"https://discogs.com"+record.uri} target="_blank"> View on Discogs</a>
+                </li>
+            ))}
+            </>
+        )
     }
 
     const Render = (props) => {
@@ -75,10 +111,13 @@ const EditRecord = (props) => {
                         <li>UPC: {data.upc}</li>
                         <li>Master: {data.master_id}</li>
                     </ul>
-                    <button className="btn btn-secondary" onClick={handleChangeAlbumArt}>Change Album Art</button>
-
+                    <button className="btn btn-secondary m-2" onClick={handleChangeAlbumArt}>Change Album Art</button>
+                    <button className="btn btn-secondary" onClick={handleSearchUPC}>Re-search by UPC</button>
                     {recordState.albumart.length > 0 &&
                         <><h3>Change Album Art</h3><RenderChangeAlbumArt /> </>}
+
+                    {recordState.albumList.length > 0 && 
+                        <><h3>UPC Search</h3> <RenderUPCList /></>}
                 </div>
             </div>
         )

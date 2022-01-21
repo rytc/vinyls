@@ -25,6 +25,7 @@ class SearchRecords extends React.Component {
         this.setState({search: event.target.value})
     }
 
+    // Search by UPC
     handleSearch(event) {
         event.preventDefault();
         fetch(`/api/discogs/search/${this.state.search}`)
@@ -45,6 +46,7 @@ class SearchRecords extends React.Component {
             });
     }
 
+    // Search by generic
     handleSearchQuery(event) {
         event.preventDefault();
         fetch(`/api/discogs/search2/${this.state.search}`)
@@ -89,13 +91,14 @@ class SearchRecords extends React.Component {
             return (
                 <>
                     <h3>Search results:</h3>
-                    <ul className="Admin-vinyl-list">
+                    <ul className="list-group">
                         {data.map((record, index) => (
-                            <li key={index}>
+                            <li key={index} className="list-group-item mb-2 p-4">
                                 <img src={record.cover_image} alt={record.title} />
-                                <strong>{record.title}</strong> - <sub>{record.year} / {record.country}</sub> - 
-                                <a href={"https://discogs.com"+record.uri}> View on Discogs</a> - 
-                                <button onClick={this.handleAdd} data-url={"/api/discogs/add/"+search + "/" + record.master_id}>Add to collection</button>
+                                <h5>{record.title}</h5> 
+                                <h6>{record.year} / {record.country}</h6>
+                                <button className="btn btn-primary" onClick={this.handleAdd} data-url={"/api/discogs/add/"+search + "/" + record.master_id}>Add to collection</button>
+                                <a className="link-dark" href={"https://discogs.com"+record.uri} target="_blank"> View on Discogs</a>
                             </li>
                         ))}
                     </ul>
@@ -109,10 +112,16 @@ class SearchRecords extends React.Component {
     render() {
         return (
             <>
-                <input type="search" id="query" onChange={this.searchChanged}/>
-                <button onClick={this.handleSearch}>Search by UPC</button>
-                <button onClick={this.handleSearchQuery}>Search</button>
-                <this.SearchList />
+            <form>
+                <div className="mb-2">
+                    <input class="form-control" type="search" id="query" onChange={this.searchChanged}/>
+                </div>
+                <div>
+                    <button className="btn btn-primary m-1" onClick={this.handleSearch}>Search by UPC</button>
+                    <button className="btn btn-secondary" onClick={this.handleSearchQuery}>Search Generic</button>
+                </div> 
+            </form>
+            <this.SearchList />
             </>
         )
     }

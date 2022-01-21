@@ -19,7 +19,6 @@ const Record = (props) => {
             .then(res => res.json())
             .then(result => {
                 setRecordState({data: result, isLoaded: true});
-                
             },
             (err) => {
                 navigate('/', {replace: true});
