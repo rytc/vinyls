@@ -28,8 +28,8 @@ class VinylWindow extends React.Component {
     TrackList(props) {
         return (
                 <ol>
-                    {props.tracklist.map(track => (
-                        <li>{track.title} - {track.duration}</li>
+                    {props.tracklist.map((track, index) => (
+                        <li key={index}>{track.title} - {track.duration}</li>
                     ))}
                 </ol>
             );
@@ -38,7 +38,7 @@ class VinylWindow extends React.Component {
     ArtistList(props) {
     return (
                 <>
-                    {props.artists.map(artist => (
+                    {props.artists.map((artist, index) => (
                        <>{artist.name}</>
                     ))}
                 </>

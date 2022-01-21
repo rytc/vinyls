@@ -4,7 +4,7 @@ function isLoggedIn(req, res, next) {
     if(req.get('Authorization') === process.env.JWT) {
         next();
     } else {
-        res.sendStatus(504);
+        res.status(401).json({error: "Authentication failed"});
     }
 }
 

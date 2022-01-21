@@ -12,39 +12,43 @@ import VinylWindow from '../../components/VinylWindow';
 */
 
 function Home() {
-  const [homeState, setHomeState] = useState({
-    records: [],
-    isLoaded: false,
-    error: null,
-  });
+    const [homeState, setHomeState] = useState({
+        records: [],
+        isLoaded: false,
+        error: null,
+    });
 
-  useEffect(() => {
-    fetch("/api/records")
-        .then(res => res.json())
-        .then(result => {
-            setHomeState({
-                isLoaded: true,
-                records: result
-            });
-        },
-        (err) => {
-            setHomeState({
-                isLoaded: false,
-                error: err
-            })
-        });
-  }, []);
+    const onItemClick = (event) => {
+        VinylWindow.show(homeState.records[event.target.dataset.index]);
+    }
 
-  return (
-    <>
-        <div className="Search">
-        </div>
-        {homeState.isLoaded ?
-            <VinylList items={homeState.records} /> :
-            <p>Loading...</p>}
-        <VinylWindow />
-    </>
-  )
+    useEffect(() => {
+        fetch("/api/records")
+            .then(res => res.json())
+            .then(result => {
+                setHomeState({
+                    isLoaded: true,
+                    records: result
+                });
+            },
+                (err) => {
+                    setHomeState({
+                        isLoaded: false,
+                        error: err
+                    })
+                });
+    }, []);
+
+    return (
+        <>
+            <div className="Search">
+            </div>
+            {homeState.isLoaded ?
+                <VinylList items={homeState.records} onItemClick={onItemClick} /> :
+                <p>Loading...</p>}
+            <VinylWindow />
+        </>
+    )
 }
 
 export default Home

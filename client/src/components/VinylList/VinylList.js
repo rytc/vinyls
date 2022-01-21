@@ -6,7 +6,7 @@ const VinylList = (props) => {
     return (
         <div className="Vinyl-card-list">
             {items.map((item, index) => (
-                <VinylCard key={index} data={item} />
+                <VinylCard key={index} index={index} data={item} onClick={props.onItemClick} />
             ))}
         </div>
     )

@@ -1,5 +1,6 @@
 const router = require("express").Router()
-const path = require("path")
+const path = require("path");
+const isLoggedIn = require("../helpers");
 require('dotenv').config()
 
 router.post("/login", (req, res) => {
@@ -12,6 +13,10 @@ router.post("/login", (req, res) => {
         console.log("Login failed");
         res.json({error:"Invalid login"});
     }
+});
+
+router.get("/admin", isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
 })
 
 router.get("*", (req, res) => {
