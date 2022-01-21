@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom'
 import SearchRecords from '../../components/SearchRecords.js';
 import VinylList from '../../components/VinylList/VinylList.js';
 
@@ -35,7 +36,7 @@ const Admin = (props) => {
     return (
         <>
             <h1>Admin</h1>
-
+            <Link to="/">Home</Link>
             <h2>Add a new record</h2>
             <SearchRecords jwt={adminState.jwt}/>
             
