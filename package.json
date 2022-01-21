@@ -1,7 +1,7 @@
 {
   "name": "vinyl-rytc",
   "version": "1.0.0",
-  "description": "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)",
+  "description": "Vinyl record collection site",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -27,7 +27,8 @@
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "if-env": "^1.0.4",
-    "mongoose": "^6.1.7"
+    "mongoose": "^6.1.7",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "concurrently": "^7.0.0"
