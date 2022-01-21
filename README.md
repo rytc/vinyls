@@ -5,6 +5,8 @@
 ## Description
 MERN app to track my vinyl record collection. [Live site here](http://vinyls.rytc.io)
 
+<img src="https://rytc.io/images/vinyls.png" alt="vinyls">
+
 ## Table of Contents
 - [Installation](#Installation)
 - [Usage](#Usage)
