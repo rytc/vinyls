@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 app.use(routes)
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 
 app.listen(process.env.PORT || 3000, async () => {

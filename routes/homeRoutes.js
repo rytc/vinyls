@@ -3,11 +3,11 @@ const path = require("path")
 require('dotenv').config()
 
 router.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build/index.html"))
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
 })
 
 router.get("/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build/index.html"))
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
 })
 
 router.post("/login", (req, res) => {
