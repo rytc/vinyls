@@ -40,6 +40,7 @@ router.get("/discogs/get/:id", (req, res) => {
     discogs.get(`/masters/${req.params.id}`, (err, data) => {
         if(err) {
             res.json({});
+            console.lig(err);
         } else {
             res.json(data);
         }
