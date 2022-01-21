@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import VinylList from '../../components/VinylList';
-import VinylWindow from '../../components/VinylWindow';
 
 /*
 <div className="Search">
@@ -12,6 +12,8 @@ import VinylWindow from '../../components/VinylWindow';
 */
 
 function Home() {
+    const navigate = useNavigate();
+
     const [homeState, setHomeState] = useState({
         records: [],
         isLoaded: false,
@@ -19,7 +21,7 @@ function Home() {
     });
 
     const onItemClick = (event) => {
-        VinylWindow.show(homeState.records[event.target.dataset.index]);
+        navigate('/record', {state: {data: homeState.records[event.target.dataset.index]}});
     }
 
     useEffect(() => {
@@ -46,7 +48,6 @@ function Home() {
             {homeState.isLoaded ?
                 <VinylList items={homeState.records} onItemClick={onItemClick} /> :
                 <p>Loading...</p>}
-            <VinylWindow />
         </>
     )
 }
