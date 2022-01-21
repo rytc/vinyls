@@ -5,12 +5,11 @@ const VinylList = (props) => {
     return (
         <div className="Vinyl-card-list">
         {props.list.map((record, index) => (
-            <Vinyl data={record} />
+            <Vinyl key={index} data={record} />
         ))}
         </div>
     );
 }
-
 
 class Records extends React.Component {
 

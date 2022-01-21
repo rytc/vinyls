@@ -1,4 +1,5 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 
 
 class SearchRecords extends React.Component {
@@ -26,7 +27,6 @@ class SearchRecords extends React.Component {
 
     handleSearch(event) {
         event.preventDefault();
-        console.log("click " + this.state.search)
         fetch(`/api/discogs/search/${this.state.search}`)
             .then(res => res.json())
             .then(result => {
@@ -47,7 +47,6 @@ class SearchRecords extends React.Component {
 
     handleSearchQuery(event) {
         event.preventDefault();
-        console.log("click " + this.state.search)
         fetch(`/api/discogs/search2/${this.state.search}`)
             .then(res => res.json())
             .then(result => {
@@ -73,6 +72,12 @@ class SearchRecords extends React.Component {
                 "Authorization": this.state.jwt
             }
         })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error) {
+                    Navigate({ to: "/login", replace: true});
+                }
+            })
     }
 
     SearchList() {
@@ -86,7 +91,7 @@ class SearchRecords extends React.Component {
                     <h3>Search results:</h3>
                     <ul className="Admin-vinyl-list">
                         {data.map((record, index) => (
-                            <li>
+                            <li key={index}>
                                 <img src={record.cover_image} alt={record.title} />
                                 <strong>{record.title}</strong> - <sub>{record.year} / {record.country}</sub> - 
                                 <a href={"https://discogs.com"+record.uri}> View on Discogs</a> - 

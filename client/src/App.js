@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import './App.css';
-import Home from './home'
-import Admin from './admin'
-
+import Home from './pages/home'
+import Admin from './pages/admin'
+import Login from './pages/login'
 
 function App() {
 
@@ -17,7 +17,12 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home/>} />
-          <Route exact path="/admin" element={<Admin/>} />
+          <Route exact path="/login" element={<Login />} />
+            <Route exact path="/admin" element={
+                localStorage.getItem("jwt") ? 
+                  <Admin/> 
+                  : <Navigate to="/login" replace={true} /> } 
+            /> 
         </Routes>
       </Router>
     </main>

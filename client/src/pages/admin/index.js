@@ -1,12 +1,14 @@
 import React from 'react';
-import Records from './components/Records.js'
-import SearchRecords from './components/SearchRecords.js';
+import Records from '../../admin/components/Records.js'
+import SearchRecords from '../../components/SearchRecords.js';
+import AdminLogin from '../../components/AdminLogin';
 
 class Admin extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
         this.state = {
+            jwt: localStorage.getItem('jwt'),
             isLoggedIn: false,
             error: null
         }
@@ -31,11 +33,17 @@ class Admin extends React.Component {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
-                this.setState({
-                    isLoggedIn: true,
-                    jwt: res.jwt
-                })
+                if(res.jwt) {
+                    this.setState({
+                        isLoggedIn: true,
+                        jwt: res.jwt,
+                        error: null
+                    })
+                } else {
+                    this.setState({
+                        error: res.error
+                    })
+                }
             }).catch(err => {
                 console.log(err);
                 this.setState({
@@ -44,34 +52,19 @@ class Admin extends React.Component {
             })
     }
 
-
     render() {
-        const {isLoggedIn, error, jwt} = this.state;
-        if(isLoggedIn) {
-            return (
-            <>
-                <h1>Admin</h1>
+        const {jwt} = this.state;
+        return (
+        <div className="container">
+            <h1>Admin</h1>
 
-                <h2>Add a new record</h2>
-                <SearchRecords jwt={jwt}/>
-                
-                <h2>Record List</h2>
-                <Records jwt={jwt}/>
-            </>
-            );
-        } else {
-            return (
-                <>
-                <h1>Admin</h1>
-                <h2>Login</h2>
-                <p>Username: </p>
-                <input type="text" id="username" /><br />
-                <p>Password: </p>
-                <input type="password" name="password" id="password" /><br />
-                <button onClick={this.handleLogin}>Login</button>
-                </>
-            );
-        }
+            <h2>Add a new record</h2>
+            <SearchRecords jwt={jwt}/>
+            
+            <h2>Record List</h2>
+            <Records jwt={jwt}/>
+        </div>
+        );
     }
 
 }

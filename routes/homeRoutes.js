@@ -2,14 +2,6 @@ const router = require("express").Router()
 const path = require("path")
 require('dotenv').config()
 
-router.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
-})
-
-router.get("/admin", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
-})
-
 router.post("/login", (req, res) => {
     console.log("Login attempt");
     if(req.body.username === process.env.USER &&
@@ -18,7 +10,12 @@ router.post("/login", (req, res) => {
             res.json({jwt: process.env.JWT})
     } else {
         console.log("Login failed");
-        res.sendStatus(500);
+        res.json({error:"Invalid login"});
     }
 })
+
+router.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
+})
+
 module.exports = router

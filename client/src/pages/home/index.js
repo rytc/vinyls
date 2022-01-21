@@ -1,5 +1,5 @@
-import Records from './components/Records.js'
-import VinylWindow from './components/VinylWindow';
+import Records from '../../components/Records.js'
+import VinylWindow from '../../components/VinylWindow';
 
 /*
 <div className="Search">
