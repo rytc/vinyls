@@ -13,10 +13,7 @@ const Record = (props) => {
     useEffect(() => {
         
         if(navState.state.data == null) {
-            alert("No nav data");
-            console.log(navState);
             navigate('/', {replace: true});
-
         } else {
             fetch(`/api/discogs/get/${navState.state.data.master_id}`)
             .then(res => res.json())

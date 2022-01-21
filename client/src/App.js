@@ -4,6 +4,7 @@ import Home from './pages/home'
 import Admin from './pages/admin'
 import Login from './pages/login'
 import Record from "./pages/record"
+import EditRecord from './pages/editrecord';
 
 function App() {
 
@@ -25,6 +26,11 @@ function App() {
                   <Admin/> 
                   : <Navigate to="/login" replace={true} /> } 
             /> 
+          <Route exact path="/editrecord" element={
+                localStorage.getItem("jwt") ? 
+                  <EditRecord /> 
+                  : <Navigate to="/login" replace={true} /> } 
+            />
         </Routes>
       </Router>
     </main>

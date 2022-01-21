@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import SearchRecords from '../../components/SearchRecords.js';
 import VinylList from '../../components/VinylList/VinylList.js';
-
+import { useNavigate } from 'react-router-dom';
 
 const Admin = (props) => {
+    const navigate = useNavigate();
 
     const [adminState, setAdminState] = useState({
         records: [],
@@ -30,7 +31,8 @@ const Admin = (props) => {
     }, []);
 
     const onItemClick = (event) => {
-        alert('bleh');
+        const index = event.target.dataset.index;
+        navigate('/editrecord', {state: {data: adminState.records[index]}})
     }
 
     return (
