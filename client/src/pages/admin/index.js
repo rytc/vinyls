@@ -1,72 +1,49 @@
-import React from 'react';
-import Records from '../../admin/components/Records.js'
+import React, { useEffect, useState } from 'react';
 import SearchRecords from '../../components/SearchRecords.js';
-import AdminLogin from '../../components/AdminLogin';
+import VinylList from '../../components/VinylList/VinylList.js';
 
-class Admin extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleLogin = this.handleLogin.bind(this);
-        this.state = {
-            jwt: localStorage.getItem('jwt'),
-            isLoggedIn: false,
-            error: null
-        }
-    }
 
-    handleLogin(event) {
-        event.preventDefault();
-        console.log("Login clicked")
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        let creds = {
-                username: username, password: password
-        }
-        fetch("/login", {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            
-            body: JSON.stringify(creds)
-        })
+const Admin = (props) => {
+
+    const [adminState, setAdminState] = useState({
+        records: [],
+        jwt: localStorage.getItem('jwt')
+    })
+
+    useEffect(() => {
+        fetch("/api/records")
             .then(res => res.json())
-            .then(res => {
-                if(res.jwt) {
-                    this.setState({
-                        isLoggedIn: true,
-                        jwt: res.jwt,
-                        error: null
+            .then(result => {
+                setAdminState({
+                    isLoaded: true,
+                    records: result
+                });
+            },
+                (err) => {
+                    setAdminState({
+                        isLoaded: false,
+                        error: err
                     })
-                } else {
-                    this.setState({
-                        error: res.error
-                    })
-                }
-            }).catch(err => {
-                console.log(err);
-                this.setState({
-                    error: err
-                })
-            })
+                });
+
+    }, []);
+
+    const onItemClick = (event) => {
+        alert('bleh');
     }
 
-    render() {
-        const {jwt} = this.state;
-        return (
-        <div className="container">
+    return (
+        <>
             <h1>Admin</h1>
 
             <h2>Add a new record</h2>
-            <SearchRecords jwt={jwt}/>
+            <SearchRecords jwt={adminState.jwt}/>
             
             <h2>Record List</h2>
-            <Records jwt={jwt}/>
-        </div>
-        );
-    }
+            <VinylList items={adminState.records} onItemClick={onItemClick} />
+        </>
 
+    )
 }
 
 export default Admin;
