@@ -25,7 +25,7 @@ const Record = (props) => {
                 
             },
             (err) => {
-                navigate('/', {replace: true});
+                console.log(err);//navigate('/', {replace: true});
             })
         }
     }, [])
