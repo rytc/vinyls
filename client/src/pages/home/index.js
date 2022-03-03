@@ -70,7 +70,7 @@ function Home() {
     return (
         <>
             <div className="Search">
-                <input type="text" onChange={onSearchChange} />
+                <input type="text" onChange={onSearchChange} placeholder="Search..." />
             </div>
             {homeState.isLoaded ?
                 <VinylList items={homeState.search.length > 0 ? homeState.search : homeState.records} onItemClick={onItemClick} /> :
