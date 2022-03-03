@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Record = (props) => {
     const navState = useLocation();
@@ -71,6 +71,7 @@ const Record = (props) => {
 
     return (
         <div className="container mt-4">
+            <Link to="/"  className="go-back-link">&lt;- Go Back</Link>
             {recordState.isLoaded ? 
                 <AlbumData />
                 :
